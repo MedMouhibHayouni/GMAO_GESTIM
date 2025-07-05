@@ -1,5 +1,3 @@
-# GMAO_GESTIM
-
 # 🛠️ GMAO - Gestion de la Maintenance Assistée par Ordinateur
 
 A powerful and modern web-based **Computerized Maintenance Management System (CMMS)** (GMAO in French) built for public institutions, municipalities, and enterprises to efficiently manage assets, maintenance operations, stock, and workflows.
@@ -64,21 +62,19 @@ This project is currently under active development as a full-stack SaaS solution
 
 ## 🧪 Project Structure
 
+```
 gmao/
-├── frontend/ # Angular 18 client app
-│ ├── core/ # Auth, Interceptors, Services
-│ └── features/ # Modules (dashboard, assets, etc.)
-├── backend/ # NestJS server app
-│ ├── src/
-│ │ ├── auth/ # JWT Auth, Guards, Policies
-│ │ ├── modules/ # Users, Assets, Work Orders, etc.
-│ │ ├── common/ # DTOs, Pipes, Utils
+├── frontend/          # Angular 18 client app
+│   ├── core/          # Auth, Interceptors, Services
+│   └── features/      # Modules (dashboard, assets, etc.)
+├── backend/           # NestJS server app
+│   ├── src/
+│   │   ├── auth/      # JWT Auth, Guards, Policies
+│   │   ├── modules/   # Users, Assets, Work Orders, etc.
+│   │   ├── common/    # DTOs, Pipes, Utils
 ├── database/
-│ └── migrations/ # TypeORM migrations
-
-yaml
-Copier
-Modifier
+│   └── migrations/    # TypeORM migrations
+```
 
 ---
 
@@ -97,44 +93,60 @@ npm install
 cp .env.example .env
 # configure DB connection in .env
 npm run start:dev
-🖥️ Frontend Setup
-bash
-Copier
-Modifier
+```
+
+### 🖥️ Frontend Setup
+```bash
 cd frontend
 npm install
 ng serve --open
-📌 Roadmap
-Phase	Tasks	Status
-✅ Phase 1	Authentication (JWT), Admin Dashboard	Complete
-🚧 Phase 2	Asset, Maintenance, and Stock Modules	In Progress
-⏳ Phase 3	Reporting, Role Management, Email Notifications	Pending
-⏳ Phase 4	SaaS Tenant Support, Cloud Deployment	Pending
+```
 
-💼 Intended Users
-✅ Municipalities
+---
 
-✅ Maintenance Services
+## 📌 Roadmap
 
-✅ Facility Managers
+| Phase         | Tasks                                               | Status     |
+|---------------|-----------------------------------------------------|------------|
+| ✅ Phase 1    | Authentication (JWT), Admin Dashboard               | Complete   |
+| 🚧 Phase 2    | Asset, Maintenance, and Stock Modules               | In Progress|
+| ⏳ Phase 3    | Reporting, Role Management, Email Notifications     | Pending    |
+| ⏳ Phase 4    | SaaS Tenant Support, Cloud Deployment               | Pending    |
 
-✅ Technicians & Engineers
+---
 
-✅ Public & Private Institutions
+## 💼 Intended Users
 
-📄 License
-This project is licensed under the MIT License. See LICENSE for more details.
+- ✅ Municipalities
+- ✅ Maintenance Services
+- ✅ Facility Managers
+- ✅ Technicians & Engineers
+- ✅ Public & Private Institutions
 
-👨‍💻 Author
-Mohamed Mouhib Hayouni
+---
 
-🧑‍💻 Full Stack Developer & Data Scientist
+## 📄 License
 
-📫 LinkedIn | Email
+This project is licensed under the **MIT License**. See [`LICENSE`](./LICENSE) for more details.
 
-📷 Screenshots
-(Coming soon — UI still under construction)
+---
 
-🌟 Contributions
+## 👨‍💻 Author
+
+**Mohamed Mouhib Hayouni**  
+- 🧑‍💻 Full Stack Developer & Data Scientist  
+- 📫 [LinkedIn](https://linkedin.com) | [Email](mailto:your@email.com)
+
+---
+
+## 📷 Screenshots
+
+*(Coming soon — UI still under construction)*
+
+---
+
+## 🌟 Contributions
+
 Contributions are welcome! Feel free to fork the repo, suggest improvements, or open issues.
 
+---
