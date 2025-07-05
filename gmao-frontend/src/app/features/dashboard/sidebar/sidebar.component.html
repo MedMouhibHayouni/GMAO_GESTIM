@@ -1,0 +1,71 @@
+<div class="sidebar-container fixed top-0 left-0 h-full bg-[#1e293b] text-white shadow-2xl z-50"
+     [class.w-24]="isCollapsed" [class.w-72]="!isCollapsed">
+
+  <!-- Sidebar Header -->
+  <div class="flex items-center justify-between p-5 border-b border-indigo-700 h-20">
+    <div class="flex items-center">
+      <img src="assets/images/logo-icon-white.png" alt="Logo" class="w-10 h-10">
+    </div>
+    <button (click)="toggleSidebar()" class="text-white hover:text-indigo-300 focus:outline-none">
+      <i class="fas fa-chevron-left text-xl" [class.transform.rotate-180]="isCollapsed"></i>
+    </button>
+  </div>
+
+  <!-- Sidebar Content -->
+  <div class="h-[calc(100%-5rem)] overflow-y-auto custom-scrollbar">
+    <nav class="px-3 py-5">
+      <ul class="space-y-2">
+        <ng-container *ngFor="let item of sidebarItems">
+          <li class="sidebar-item group rounded-xl hover:bg-indigo-700"
+              [class.bg-indigo-600]="item.isExpanded && item.children">
+
+            <!-- Single Item -->
+            <a *ngIf="!item.children"
+               [routerLink]="item.route"
+               routerLinkActive="bg-indigo-900 shadow-lg"
+               class="flex items-center px-5 py-4 text-white hover:text-indigo-100 rounded-xl">
+              <i class="fas fa-{{item.icon}} text-2xl w-8 text-center"></i>
+              <span class="sidebar-item-text ml-4 font-semibold text-lg tracking-wide">{{item.name}}</span>
+              <span *ngIf="item.badge" class="badge ml-auto px-2 py-1 text-sm font-bold rounded-full"
+                    [ngClass]="badgeColorClasses(item.badge.color)">
+                {{item.badge.count}}
+              </span>
+            </a>
+
+            <!-- Parent Item -->
+            <div *ngIf="item.children" class="cursor-pointer">
+              <div (click)="toggleItem(item)"
+                   class="flex items-center px-5 py-4 text-white hover:text-indigo-100 rounded-xl">
+                <i class="fas fa-{{item.icon}} text-2xl w-8 text-center"></i>
+                <span class="sidebar-item-text ml-4 font-semibold text-lg tracking-wide">{{item.name}}</span>
+                <i class="fas fa-chevron-down sidebar-item-chevron ml-auto text-base transition-transform duration-200"
+                   [class.rotate-180]="item.isExpanded"></i>
+                <span *ngIf="item.badge" class="badge ml-2 px-2 py-1 text-sm font-bold rounded-full"
+                      [ngClass]="badgeColorClasses(item.badge.color)">
+                  {{item.badge.count}}
+                </span>
+              </div>
+
+              <!-- Submenu -->
+              <div [id]="getSubmenuId(item.name)" class="submenu overflow-hidden">
+                <div class="py-2 pl-12 pr-4">
+                  <a *ngFor="let child of item.children"
+                     [routerLink]="child.route"
+                     routerLinkActive="bg-indigo-900 shadow-md"
+                     class="flex items-center px-4 py-3 text-indigo-100 hover:text-white hover:bg-indigo-700 rounded-lg text-base font-medium">
+                    <i class="fas fa-{{child.icon}} text-xl w-6 text-center"></i>
+                    <span class="ml-4">{{child.name}}</span>
+                    <span *ngIf="child.badge" class="badge ml-auto px-2 py-0.5 text-xs font-bold rounded-full"
+                          [ngClass]="badgeColorClasses(child.badge.color)">
+                      {{child.badge.count}}
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ng-container>
+      </ul>
+    </nav>
+  </div>
+</div>

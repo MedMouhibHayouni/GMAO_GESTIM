@@ -1,0 +1,51 @@
+.navbar {
+  // Custom shadow
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+
+  // Smooth transitions
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s ease;
+
+  // Input focus states
+  input:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+  }
+
+  // Dropdown animations
+  .dropdown-menu {
+    transition: all 0.3s ease;
+    transform-origin: top right;
+
+    &:not(.hidden) {
+      animation: dropdownFadeIn 0.3s ease forwards;
+    }
+  }
+
+  // Badge pulse animation
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+
+  [class*="bg-red"] {
+    animation: pulse 2s infinite;
+  }
+}
+
+@keyframes dropdownFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Accessibility focus styles
+.navbar button:focus {
+  outline: 2px solid rgba(59, 130, 246, 0.5);
+  outline-offset: 2px;
+}
