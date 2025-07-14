@@ -4,6 +4,7 @@ import { ensureDatabaseExists } from './aa_config/database-init.script';
 import { ValidationPipe } from '@nestjs/common';
 import { ThrottlerModule } from '@nestjs/throttler';
 import helmet from 'helmet';
+import { PermissionRoleSeeder } from './database/seeders/permission-role.seeder';
 
 function validateEnv() {
   const required = [
@@ -58,15 +59,17 @@ async function bootstrap() {
   // Apply global guards
   //const reflector = app.get(Reflector);
   //app.useGlobalGuards(new JwtAuthGuard(reflector), new RolesGuard(reflector));
+  // Run the seeder
+  // Run seeder in development
+  if (process.env.NODE_ENV === 'development') {
+    const seeder = app.get(PermissionRoleSeeder);
+    await seeder.seed();
+  }
 
   await app.listen(3000, () => {
-    console.log(' ');
-    console.log('🚀 GMAO Backend is Running!');
-    console.log('🔗 Connected to PostgreSQL 17');
-    console.log('🌐 Listening at http://localhost:3000');
-    console.log(' ');
-    console.log('✨ All systems operational ✨');
-    console.log(' ');
+    console.log('\n🚀 GMAO Backend is Running!');
+    console.log(`🔗 Connected to PostgreSQL ${process.env.DB_PORT || 5432}`);
+    console.log(`🌐 Listening at http://localhost:3000\n`);
   });
 }
 bootstrap();

@@ -1,11 +1,14 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+// src/auth/dto/login.dto.ts
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { ValidateMessage } from './register.dto';
 
 export class LoginDto {
-  @IsString()
-  @IsNotEmpty()
-  username: string;
+  @IsEmail()
+  @ValidateMessage('INVALID_EMAIL')
+  email: string;
 
-  @IsString()
   @IsNotEmpty()
-  password: string;
+  @ValidateMessage('REQUIRED')
+  @IsString()
+  motDePasse: string;
 }

@@ -34,9 +34,9 @@ export class AuthService {
     }
   }
 
-  login(username: string, password: string): Observable<AuthResponse> {
+  login(email: string, motDePasse: string): Observable<AuthResponse> {
     return this.http
-      .post<AuthResponse>(`${this.apiUrl}/login`, { username, password })
+      .post<AuthResponse>(`${this.apiUrl}/login`, { email, motDePasse })
       .pipe(
         tap((response) => {
           if (this.isBrowser) this.setAuthState(response);

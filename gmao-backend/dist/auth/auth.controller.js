@@ -15,35 +15,49 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
-const login_dto_1 = require("./dto/login.dto");
 const register_dto_1 = require("./dto/register.dto");
+const login_dto_1 = require("./dto/login.dto");
 const swagger_1 = require("@nestjs/swagger");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
-    login(loginDto) {
-        return this.authService.login(loginDto);
-    }
-    register(registerDto) {
+    async register(registerDto, lang = 'fr') {
+        registerDto.lang = lang || 'fr';
         return this.authService.register(registerDto);
+    }
+    async login(loginDto, lang = 'fr') {
+        loginDto.lang = lang || 'fr';
+        return this.authService.login(loginDto);
     }
 };
 exports.AuthController = AuthController;
 __decorate([
-    (0, common_1.Post)('login'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [login_dto_1.LoginDto]),
-    __metadata("design:returntype", void 0)
-], AuthController.prototype, "login", null);
-__decorate([
     (0, common_1.Post)('register'),
+    (0, swagger_1.ApiHeader)({
+        name: 'Accept-Language',
+        description: 'Langue préférée (fr, ar)',
+        required: false,
+    }),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Headers)('accept-language')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [register_dto_1.RegisterDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [register_dto_1.RegisterDto, String]),
+    __metadata("design:returntype", Promise)
 ], AuthController.prototype, "register", null);
+__decorate([
+    (0, common_1.Post)('login'),
+    (0, swagger_1.ApiHeader)({
+        name: 'Accept-Language',
+        description: 'Langue préférée (fr, ar)',
+        required: false,
+    }),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Headers)('accept-language')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [login_dto_1.LoginDto, String]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "login", null);
 exports.AuthController = AuthController = __decorate([
     (0, swagger_1.ApiTags)('auth'),
     (0, common_1.Controller)('auth'),

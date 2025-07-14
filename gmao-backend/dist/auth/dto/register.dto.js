@@ -9,36 +9,52 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RegisterDto = void 0;
+exports.RegisterDto = exports.LanguageMessageValidator = void 0;
+exports.ValidateMessage = ValidateMessage;
 const class_validator_1 = require("class-validator");
-const roles_enum_1 = require("../../roles/enums/roles.enum");
+const roles_enum_1 = require("../../common/constatns/roles.enum");
+const validation_messages_1 = require("../../common/validation-messages");
+let LanguageMessageValidator = class LanguageMessageValidator {
+    validate(value, args) {
+        return true;
+    }
+    defaultMessage(args) {
+        const { lang = 'fr' } = args.object;
+        const messages = validation_messages_1.ValidationMessages[args.constraints[0]];
+        return messages[lang] || messages.fr;
+    }
+};
+exports.LanguageMessageValidator = LanguageMessageValidator;
+exports.LanguageMessageValidator = LanguageMessageValidator = __decorate([
+    (0, class_validator_1.ValidatorConstraint)({ name: 'LanguageMessage', async: false })
+], LanguageMessageValidator);
+function ValidateMessage(messageKey) {
+    return (0, class_validator_1.Validate)(LanguageMessageValidator, [messageKey]);
+}
 class RegisterDto {
 }
 exports.RegisterDto = RegisterDto;
 __decorate([
-    (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], RegisterDto.prototype, "username", void 0);
-__decorate([
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.MinLength)(6),
+    ValidateMessage('REQUIRED'),
     __metadata("design:type", String)
-], RegisterDto.prototype, "password", void 0);
+], RegisterDto.prototype, "nom", void 0);
 __decorate([
     (0, class_validator_1.IsEmail)(),
+    ValidateMessage('INVALID_EMAIL'),
     __metadata("design:type", String)
 ], RegisterDto.prototype, "email", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(8),
+    ValidateMessage('PASSWORD_MIN_LENGTH'),
+    (0, class_validator_1.Matches)(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/),
+    ValidateMessage('PASSWORD_COMPLEXITY'),
     __metadata("design:type", String)
-], RegisterDto.prototype, "firstName", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], RegisterDto.prototype, "lastName", void 0);
+], RegisterDto.prototype, "motDePasse", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
+    ValidateMessage('ROLE_REQUIRED'),
     __metadata("design:type", String)
 ], RegisterDto.prototype, "role", void 0);
 //# sourceMappingURL=register.dto.js.map

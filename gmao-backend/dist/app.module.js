@@ -11,12 +11,16 @@ const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const typeorm_1 = require("@nestjs/typeorm");
-const users_module_1 = require("./users/users.module");
 const typeorm_config_1 = require("./aa_config/typeorm.config");
 const auth_module_1 = require("./auth/auth.module");
 const throttler_1 = require("@nestjs/throttler");
 const config_1 = require("@nestjs/config");
-const roles_module_1 = require("./roles/roles.module");
+const utilisateur_module_1 = require("./utilisateur/utilisateur.module");
+const role_module_1 = require("./role/role.module");
+const permission_module_1 = require("./permission/permission.module");
+const permission_role_seeder_1 = require("./database/seeders/permission-role.seeder");
+const permission_entity_1 = require("./permission/entities/permission.entity");
+const role_entity_1 = require("./role/entities/role.entity");
 const throttlerConfig = {
     ttl: parseInt(process.env.THROTTLE_TTL, 10),
     limit: parseInt(process.env.THROTTLE_LIMIT, 10),
@@ -32,13 +36,15 @@ exports.AppModule = AppModule = __decorate([
                 envFilePath: '.env',
             }),
             typeorm_1.TypeOrmModule.forRoot(typeorm_config_1.typeOrmConfig),
+            typeorm_1.TypeOrmModule.forFeature([permission_entity_1.Permission, role_entity_1.Role]),
             throttler_1.ThrottlerModule.forRoot([throttlerConfig]),
-            users_module_1.UsersModule,
-            roles_module_1.RolesModule,
             auth_module_1.AuthModule,
+            utilisateur_module_1.UtilisateurModule,
+            role_module_1.RoleModule,
+            permission_module_1.PermissionModule,
         ],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
+        providers: [app_service_1.AppService, permission_role_seeder_1.PermissionRoleSeeder],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map
